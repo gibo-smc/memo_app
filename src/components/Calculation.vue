@@ -11,21 +11,17 @@ div
     button.exec(@click="execCalc")
       | 足し算実行
 </template>
-<script>
-import addition from '../modules/addition'
-export default {
-  name: 'Calculation',
-  data () {
-    return {
-      leftInput: 0,
-      rightInput: 0,
-      answer: 0
-    }
-  },
-  methods: {
-    execCalc () {
-      this.answer = addition(this.leftInput, this.rightInput)
-    }
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator'
+import addition from '@/modules/addition'
+
+@Component
+export default class Calculation extends Vue {
+  leftInput: number = 0
+  rightInput: number = 0
+  answer: number = 0
+  execCalc (): void {
+    this.answer = addition(this.leftInput, this.rightInput)
   }
 }
 </script>

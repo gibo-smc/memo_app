@@ -1,10 +1,11 @@
 const webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const path = require('path')
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 
 module.exports = {
   entry: {
-    main: './src/index.js',
+    main: './src/index.ts',
   },
   output: {
     filename: `[name].js`,
@@ -12,17 +13,32 @@ module.exports = {
   },
   plugins: [
     new VueLoaderPlugin(),
+    new ForkTsCheckerWebpackPlugin(
+      {
+        vue: true,
+        tslint: true,
+        formatter: 'codeframe',
+        checkSyntacticErrors: false
+      }
+    )
   ],
   module: {
     rules:[
       {
-        test: /\.js$/,
-        exclude: /node-modules/,
+        test: /\.ts$/,
         use: [
           {
-            loader: 'babel-loader'
+            loader: 'ts-loader',
+            options: {
+              // コンパイルエラーはForkTsCheckerWebpackPluginでチェック
+              transpileOnly: true,
+              appendTsSuffixTo: [
+                '\\.vue$'
+              ],
+              happyPackMode: false
+            }
           }
-        ],
+        ]
       },
       {
         test: /\.vue$/,
@@ -41,14 +57,7 @@ module.exports = {
             loader: 'postcss-loader',
             options: {
               plugins: [
-                require('autoprefixer')({
-                  browsers: [
-                    'last 2 versions',
-                    'not ie < 11',
-                    'Android >= 4',
-                    'iOS >= 9'
-                  ]
-                })
+                require('autoprefixer')
               ]
             }
           },
@@ -63,11 +72,12 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['.js', '.vue'],
+    extensions: ['.js', '.ts', '.vue'],
     modules: ['node_modules'],
     alias: {
       // vue.js のビルドを指定する
-      vue: 'vue/dist/vue.common.js'
+      vue: 'vue/dist/vue.common.js',
+      '@': path.resolve(__dirname, 'src/')
     }
   },
   devServer: {

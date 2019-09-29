@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm test && webpack-dev-server --config ./webpack.config.js",
+    "start": "webpack-dev-server --config ./webpack.config.js",
     "test": "jest",
     "build": "webpack --config ./webpack.config.js"
   },
@@ -22,12 +22,15 @@
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
+    "@types/webpack": "^4.39.2",
+    "@types/webpack-env": "^1.14.0",
     "@vue/test-utils": "^1.0.0-beta.29",
     "autoprefixer": "^9.5.1",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^24.8.0",
     "babel-loader": "^8.0.6",
     "css-loader": "^2.1.1",
+    "fork-ts-checker-webpack-plugin": "^1.5.0",
     "jest": "^24.8.0",
     "jest-serializer-vue": "^2.0.2",
     "node-sass": "^4.12.0",
@@ -35,6 +38,10 @@
     "pug": "^2.0.3",
     "pug-plain-loader": "^1.0.0",
     "sass-loader": "^7.1.0",
+    "ts-jest": "^24.1.0",
+    "ts-loader": "^6.2.0",
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.3",
     "vue-jest": "^3.0.4",
     "vue-loader": "^15.7.0",
     "vue-style-loader": "^4.1.2",
@@ -44,6 +51,10 @@
     "webpack-dev-server": "^3.4.1"
   },
   "dependencies": {
-    "vue": "^2.6.10"
+    "vue": "^2.6.10",
+    "vue-class-component": "^7.1.0",
+    "vue-property-decorator": "^8.2.2",
+    "vue-router": "^3.1.3",
+    "vuex": "^3.1.1"
   }
 }
